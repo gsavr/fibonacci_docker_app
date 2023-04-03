@@ -1,22 +1,16 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Loading } from "../components/Loading";
 
 export default function Fib() {
-  const [seenIndexes, setSeenIndexes] = useState([]);
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState([
+    { index: 1, result: 1 },
+    { index: 2, result: 1 },
+  ]);
   const [index, setIndex] = useState("");
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState("disabled");
   const [error, setError] = useState(false);
-  // console.log(seenIndexes);
-  // console.log(values);
-  // console.log(index);
-
-  useEffect(() => {
-    fetchValues();
-    fetchIndexes();
-  }, [index, loading]);
+  console.log(values);
 
   useEffect(() => {
     if (parseInt(index) < 0 || parseInt(index) > 40 || index === "") {
@@ -26,21 +20,15 @@ export default function Fib() {
     }
   }, [index]);
 
-  const fetchValues = async () => {
-    const values = await axios.get("/api/values/current");
-
-    // console.log(values);
-    setValues(values.data);
+  const calcFib = (index) => {
+    const res = [0, 1];
+    for (let i = 2; i <= index; i++) {
+      res[i] = res[i - 1] + res[i - 2];
+    }
+    setValues([...values, { index, result: res[index] }]);
   };
 
-  const fetchIndexes = async () => {
-    const seenIndexes = await axios.get("/api/values/all");
-
-    // console.log(seenIndexes);
-    setSeenIndexes(seenIndexes.data);
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (parseInt(index) < 0 || parseInt(index) > 40 || index === "") {
@@ -49,41 +37,35 @@ export default function Fib() {
       setError(false);
       setLoading(true);
       // console.log(index);
-      const response = await axios.post("/api/values", {
-        index,
-      });
+      calcFib(index);
       //console.log(response);
-      if (response) setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+
       setIndex("");
     }
   };
 
-  const renderSeenIndexes = () => {
-    return seenIndexes
-      .slice(seenIndexes.length - 5, seenIndexes.length)
-      .map(({ number }) => number)
-      .join(", ");
-  };
-
   const renderValues = () => {
-    const entries = [];
-
-    for (let key in values) {
-      entries.push(
-        <div key={key} className="d-flex flex-row justify-content-between">
-          <div>For index {key}</div>
+    return values.map((value) => {
+      return (
+        <div
+          key={value.index}
+          className="d-flex flex-row justify-content-between"
+        >
+          <div>For index {value.index}</div>
           <div className="">...........................</div>
-          {loading ? <div>...</div> : <div>{values[key]}</div>}
+          {loading ? <div>...</div> : <div>{value.result}</div>}
         </div>
       );
-    }
-    return entries;
+    });
   };
 
   return (
     <div className="fib">
       <form onSubmit={handleSubmit}>
-        <div class="mb-3">
+        <div className="mb-3">
           <label className="form-label">Enter Index between 0 and 40: </label>
           <input
             type="number"
@@ -100,10 +82,7 @@ export default function Fib() {
       )}
       {loading && <Loading util="info" message="Working" />}
 
-      <h3 className="mt-5">Latest 5 Indexes Calculated:</h3>
-      {renderSeenIndexes()}
-
-      <h3>Calculated Values:</h3>
+      <h3 className="mt-5">Calculated Values:</h3>
       <div
         className="d-flex flex-column justify-content-center mx-auto"
         style={{ width: "300px" }}

@@ -13,7 +13,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Fib />} />
         <Route path="/how_it_works" element={<OtherPage />} />
-        <Route path="/reset_967" element={<ResetPage />} />
       </Routes>
       <Footer />
     </div>

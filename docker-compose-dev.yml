@@ -1,6 +1,6 @@
 version: "3"
 services:
-  fib-app:
+  fib-app-ndb:
     build:
       #  reference to where all files are
       context: .
@@ -11,11 +11,3 @@ services:
       - /app/node_modules
       # map current working directory in computer to image - updates will be reflected
       - .:/app
-  fib-tests:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /app/node_modules
-      - .:/app
-    command: ["npm", "run", "test"]
