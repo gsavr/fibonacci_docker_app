@@ -19,6 +19,12 @@ export const Footer = () => {
                 Built with React.js / Node.js & Express / Docker / Postgres &
                 Redis DB, by Giorgio Savron
               </div>
+              <a
+                href="https://github.com/gsavr/fibonacci_docker_aws"
+                target="_blank"
+              >
+                GitHub
+              </a>
             </div>
           </div>
         </div>
