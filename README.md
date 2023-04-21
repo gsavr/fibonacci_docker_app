@@ -6,7 +6,7 @@ Docker container app created with React and Node.js, This particular version is 
 
 ### Demo
 
-[Fibonacci Calculator](https://fib-app.vercel.app/)
+[Fibonacci Calculator](https://master.d3mg7hl4rh1qll.amplifyapp.com/)
 
 ### Technologies Used
 
