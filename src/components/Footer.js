@@ -1,3 +1,7 @@
+import gs_logo from "../img/gs_logo.png";
+import github from "../img/github.png";
+import linkedin from "../img/linkedin.png";
+
 export const Footer = () => {
   return (
     <footer
@@ -19,12 +23,32 @@ export const Footer = () => {
                 Built with React.js / Node.js & Express / Docker / Postgres &
                 Redis DB, by Giorgio Savron
               </div>
-              <a
-                href="https://github.com/gsavr/fibonacci_docker_aws"
-                target="_blank"
-              >
-                GitHub
-              </a>
+              <div className="flex">
+                <a
+                  href="https://giorgiosavron.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mx-2"
+                >
+                  <img src={gs_logo} alt="GS_logo" width={20} height={20} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/giorgio-savron/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mx-2"
+                >
+                  <img src={linkedin} alt="linkedIn" width={20} height={20} />
+                </a>
+                <a
+                  href="https://github.com/gsavr/fibonacci_docker_aws"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mx-2"
+                >
+                  <img src={github} alt="github" width={20} height={20} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
